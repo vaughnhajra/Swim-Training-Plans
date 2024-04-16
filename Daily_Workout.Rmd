@@ -1,0 +1,94 @@
+---
+output: pdf_document
+geometry: "left=1in,right=1in,top=2cm,bottom=2cm"
+params:
+  day: 4
+  week: 3
+  name: "Vaughn"
+---
+\begin{center}
+
+`r params$name`'s Daily Workout (`r Sys.Date()`)
+
+Optimized Swimming: Week `r params$week`, Day `r params$day`
+
+\end{center}
+
+&nbsp;
+
+
+Warm-Up:
+
+```{r, supress = TRUE, echo=FALSE, warning=FALSE}
+library(kableExtra)
+```
+
+
+```{r, echo = FALSE, warning=FALSE}
+warmup <- data.frame(
+  Distance = c("2-300", "4x50", "4x50"),
+  Interval = c("-", "1:10", "1:00"),
+  Drill = c("Easy, warm up swim", "Kick, Choice", "Freestyle Pull"),
+  Intensity = c(1, 2, 2)
+)
+
+kable(warmup) %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(c(0, 2), background = "lightgrey")
+```
+
+
+
+Butterfly Drills (Repeat 2 times):
+
+
+```{r, echo = FALSE, warning=FALSE}
+flyDrills <- data.frame(
+  Distance = c("4x25", "3x25", "3x25", "2x25"),
+  Interval = c("1:00", "0:45", "0:45", "1:00"),
+  Drill = c("Flow Drill", "Single Arm Butterfly", "2-2-2 Butterfly", "Skate Drill"),
+  Intensity = c(1, 2, 2, 2)
+)
+
+kable(flyDrills) %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(c(0, 2, 4), background = "lightgrey")
+```
+
+
+
+Main Set - VO2 Max (Repeat 2 times, first round choice of stroke, second round freestyle):
+
+
+```{r, echo = FALSE, warning=FALSE}
+VO2max <- data.frame(
+  Distance = c("4x25", "2x50", "10x50", "4x50"),
+  Interval = c("1:00", "0:50", "1:30", "1:00"),
+  Drill = c("Variable Sprint", "perfect technique", "Best Average", "recovery"),
+  Intensity = c(4, 3, 5, 1)
+)
+
+kable(VO2max) %>%
+  kable_styling(full_width = TRUE) %>%
+  row_spec(c(0, 2, 4), background = "lightgrey")
+```
+
+200 Cool-Down
+
+&nbsp;
+
+**Drills Refresher:**
+
+* **Flow Drill (snorkel optional)**: Undulate with your hands either above your head or at your sides, with a wave-like motion going through your entire body
+* **Single Arm Butterfly**: With a strong, consistent dolfin kick, swim butterfly with only one arm and breathe to the opposite side. Alternate arms by 25
+* **2-2-2 Butterfly**: Similar to single arm butterfly, but now take two strokes with your right arm, two with your left, and two with both arms. Repeat until at the other side.
+* **Skate Drill**: Maintain horizontal body position by using neck muscles for breathing, emphasizing low shoulders and avoiding excessive rotation, simulating skating over water surface by pulling your arms down as you kick, and then slowy recover them underwater.
+
+**VO2 Max Goal:**
+
+The goal of VO2 Max is to hold the fastest consistent pace that you can across all ten 50s. This pace should match your second 50 split of your goal time. For example, if you want to come back 30 seconds in your 50 freestyle, your average across 10 50s should be 30 seconds. To learn more about VO2 Max and swimming, visit [bit.ly/vo2explained](bit.ly/vo2explained)
+
+&nbsp;
+
+
+Workout Created Using: [bit.ly/swim_training](bit.ly/swim_training)
