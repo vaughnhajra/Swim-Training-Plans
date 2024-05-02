@@ -1,6 +1,7 @@
-# comp401
-Scientific Computing Seminar Repository
-Vaughn Hajra, Spring 2024
+# Creating Optimized Swimming Training Plans
+### Vaughn Hajra
+### Spring, 2024
+### Seminar in Scientific Computing, Kenyon College
 
 Connecting R Studio to Github:
 https://happygitwithr.com/rstudio-git-github.html
