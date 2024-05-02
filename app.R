@@ -25,6 +25,28 @@ overview_content_swimming <- "<h1>Welcome To Your Swim Training Companion</h1>
 <p>Explore the various tabs to access your daily workouts, training plans, intensity tracking, swimming drills, and more. Whether you're training for competition or simply looking to stay fit, Swim Training Plan is your ultimate companion in achieving your swimming goals.</p>
 "
 
+overview_daily_workout <- "
+<h3>How to Get Workout</h3>
+
+<p>To View Today's workout, click on the 'Get Workout' button to download your workout as a pdf. View it on your computer, phone, or print it out and take it to the pool!</p>
+
+<h3>Overview</h3>
+
+<p>There are three main components of a swim practice. Warm-up, the pre-set, and the main set. Warm up is a time to get your mind focusesd and your body ready to go. The pre-set (drills in this case) is designed to work on technique while preparing for the main set. The main set is the focus of the workout, often challenging and targeting different energy systems.</p>
+
+<h3>Navigating a Practice.</h3>
+
+<p>A recommended approach to going through a swim practice is to take it one set at a time. Warm up each day is the same, with it serving as an opportunity to both relax and focus on the upcoming set. Then, work through your drills at a pace that suits you (take as long as you need!). Take a couple of minutes before starting the main set, and try not to take excessive breaks during the main set.</p>
+
+<h3>What are the intensity numbers?</h3>
+
+<p>Think of intensity numbers as if they were gears on a five-speed bike, where 1 is the easiest (and slowest) and 5 is high intensity (and fast). Intensities 1 and 2 are typically used for warm-up and drills. Intensities 3 and 4 are for aerobic work and threshold training. Intensity 5 is a focus on speed and maximum effort.</p>
+
+<h3>Can I swim and do other sports too?</h3>
+
+<p>Yes! These training plans are designed to be simple and compliment other sports</p>
+"
+
 # Define UI for application
 # Define UI function for application
 ui <- function(request) {
@@ -63,25 +85,19 @@ ui <- function(request) {
                              min = 1, max = 10, value = 1, step = 1),
                  sliderInput("day", "Day Number",
                              min = 1, max = 5, value = 1, step = 1),
-                 downloadButton('downloadReport')
+                 downloadButton('downloadReport', label = "Get Workout (PDF)")
                ),
                mainPanel(
-                 # Main content for page 1
-                 h3("Daily Workout"),
-                 h5("Warm Up:"),
-                 tableOutput("warmup"),
-                 h5("Drills:"),
-                 tableOutput("drills"),
-                 h5("Main Set:"),
-                 tableOutput("main"),
-                 h5("Finish with a 200 cooldown."),
-                 h3("[This is an incomplete demo practice for proof of concept only. To see this practice as a downloadable form, click download pdf!]")
-               )
+                 tags$div(HTML(overview_daily_workout))
+                 )
              )
     ),
     tabPanel("Training Plan", icon = icon("chart-bar"),
              mainPanel(
                # Main content for page 2
+               uiOutput("startSwim"),
+               plotlyOutput("plot3"),
+               uiOutput("startSwim_caption"),
                uiOutput("volume"),
                plotlyOutput("plot1"),
                uiOutput("intensity"),
@@ -114,6 +130,21 @@ server <- function(input, output) {
       tags$h3("Intensity - Why track it?"),
       tags$p("Tracking intensity levels is essential for optimizing training effectiveness. It ensures that workouts are appropriately challenging without risking overexertion or burnout. Monitoring intensity helps tailor training to individual needs, whether focusing on skill development or endurance improvement."),
       tags$p("Intensity tracking provides valuable insights into performance progression over time. By systematically adjusting intensity levels, swimmers can target specific training adaptations, such as aerobic endurance, anaerobic capacity, or speed. This structured approach maximizes training outcomes and minimizes the risk of plateauing.")
+    )
+  })
+  
+  output$startSwim <- renderUI({
+    tags$div(
+      tags$h3("How Serious Should I Take Swimming?"),
+      tags$p("Swimming varies for each individual. Encourage young swimmers to follow their passion in training. Data from elite 18-year-olds shows they typically start at 6, focus on just swimming at 10, specialize in a stroke or event at 14, and adopt two-a-days at 14."),
+      tags$p("Remember, not every swimmer becomes a top 100 athlete and success is defined in many ways. It's wise for kids to explore multiple sports in elementary school. If they're passionate about swimming in middle school, they can start focusing more on it. High school may be the time to consider double practices while maintaining versatility."),
+      tags$p("Here's a plot based on survey data from elite 18 year-old swimmers:")
+    )
+  })
+  
+  output$startSwim_caption <- renderUI({
+    tags$div(
+      tags$p("startAge is the age at which they started swimming. mainAge is when swimming became their 'main' sport. doublesAge is when the swimmers started two practices per day, and specializationAge is when they focused on a specific stroke or event type.")
     )
   })
   
@@ -152,16 +183,14 @@ server <- function(input, output) {
   
   output$downloadReport <- downloadHandler(
     filename = 'daily_workout.pdf',
-    
     content = function(file) {
-      src <- normalizePath('Daily_Workout.Rmd')
+      # Get the path to the Rmd file within the shiny package directory
+      src <- system.file("Daily_Workout.Rmd", package = "shiny")
       
-      # temporarily switch to the temp dir, in case you do not have write
-      # permission to the current working directory
-      owd <- setwd(tempdir())
-      on.exit(setwd(owd))
+      # Copy the Rmd file to the temp directory
       file.copy(src, 'Daily_Workout.Rmd', overwrite = TRUE)
       
+      # Render the Rmd file
       id <- showNotification(
         "Creating Your PDF...", 
         duration = NULL, 
@@ -174,15 +203,18 @@ server <- function(input, output) {
                     params = list(
                       day = input$day,
                       week = input$week,
-                      name = input$name_input
+                      name = input$name_input,
+                      age = input$age,
+                      base = input$base_interval_input
                       # Add more parameters as needed
                     ),
                     output_file = file, 
                     pdf_document()
-                  )
+      )
       file.rename(out, file)
     }
   )
+  
 
   
   
@@ -250,6 +282,47 @@ server <- function(input, output) {
     
     # Return the plot
     p
+  })
+  
+  output$plot3 <- renderPlotly({
+    # Create data frame
+    df_ages <- read.csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRPoE6xu1bzQSmx-cl2rEjLo5fvOK1xcgAI2fgyP7pWpHy2sRPXUZyT8bEgCgbFw-QgQYeTm3qx9m-D/pub?gid=0&single=true&output=csv")
+    
+    # Create an empty dataframe to store the cumulative percentages
+    age_df_cumulative <- data.frame(age = 3:20)
+    
+    # Calculate the cumulative percentage of swimmers who have achieved each milestone at each age
+    for (i in 1:ncol(df_ages)) {
+      milestone <- colnames(df_ages)[i]
+      age_counts <- table(cut(df_ages[[i]], breaks = c(3:21), right = FALSE))
+      cumulative_percentages <- cumsum(age_counts) / sum(age_counts) * 100
+      age_df_cumulative[milestone] <- cumulative_percentages
+    }
+    
+    # Remove the 'subject' column if it exists
+    if ("subject" %in% colnames(age_df_cumulative)) {
+      age_df_cumulative <- age_df_cumulative[, -which(names(age_df_cumulative) == "subject")]
+    }
+    
+    
+    # Rearrange the columns of the dataframe
+    age_df_cumulative <- age_df_cumulative[, c("age", "startAge", "mainAge", "doublesAge", "specializationAge")]
+    
+    # Convert the dataframe to long format for plotting
+    age_df_long <- reshape2::melt(age_df_cumulative, id.vars = "age")
+    
+    
+    # Plot the data with smoothed lines and shaded areas
+    plot <- plot_ly(data = age_df_long, x = ~age, y = ~value, color = ~variable, type = 'scatter', mode = 'lines',
+                    line = list(shape = "spline"), fill = 'tozeroy', legendgroup = ~variable)
+    
+    # Customize the plot
+    plot <- plot %>% layout(title = "Cumulative Percentages by Age",
+                            xaxis = list(title = "Age"),
+                            yaxis = list(title = "Percentage at Benchmark"))
+    
+    # Display the plot
+    plot
   })
   
   

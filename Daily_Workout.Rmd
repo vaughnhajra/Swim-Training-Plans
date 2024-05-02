@@ -2,9 +2,11 @@
 output: pdf_document
 geometry: "left=1in,right=1in,top=2cm,bottom=2cm"
 params:
-  day: 4
-  week: 3
+  day: 5
+  week: 10
   name: "Vaughn"
+  age: 13
+  base: "1:10"
 ---
 \begin{center}
 
@@ -13,82 +15,350 @@ params:
 Optimized Swimming: Week `r params$week`, Day `r params$day`
 
 \end{center}
-
 &nbsp;
 
 
+\begin{center}
 Warm-Up:
+\end{center}
 
 ```{r, supress = TRUE, echo=FALSE, warning=FALSE}
-library(kableExtra)
+
+# Function to return modified seconds in relation to the base interval
+update_interval <- function(base_interval, difference, multiplier) {
+  # Convert base interval to seconds
+  base_seconds <- as.integer(unlist(strsplit(base_interval, ":"))[1]) * 60 +
+    as.integer(unlist(strsplit(base_interval, ":"))[2])
+  
+  # Update seconds with difference
+  updated_seconds <- multiplier*base_seconds + difference
+  
+  # Calculate new minutes and seconds
+  new_minutes <- floor(updated_seconds / 60)
+  new_seconds <- updated_seconds %% 60
+  
+  # Format new interval
+  new_interval <- paste(new_minutes, sprintf("%02d", new_seconds), sep = ":")
+  
+  return(new_interval)
+}
+
+
+repeatDrills <- "2"
+repeatMain <- "2"
+
+if(params$week <= 2){
+    repeatDrills <- "1"
+    repeatMain <- "1"
+  }else if (params$week >2 && params$week < 9){
+    repeatDrills <- "2"
+    repeatMain <- "2"
+  }else{
+    repeatDrills <- "3"
+    repeatMain <- "1"
+  }
+
+stroke <- ""
+mainSet <- ""
+mainBlurb <- ""
+main_goal <- ""
+
+# Initialize drills
+drill1 <- "error"
+drill2 <- "error"
+drill3 <- "error"
+drill4 <- "error"
+
+# Initialize Drill blurbs for bottom of the set
+drill_blurb_1 <- ""
+drill_blurb_2 <- ""
+drill_blurb_3 <- ""
+drill_blurb_4 <- ""
+
+
+if(params$day == 1){
+  stroke <- "Freestyle"
+  mainSet <- "Threshold"
+  repeatMain <- "1"
+  mainBlurb <- paste("Repeat",repeatMain,"time")
+  
+  
+  drill1 <- "Freestyle Catch-Up"
+  drill2 <- "One Arm Freestyle"
+  drill3 <- "6-Kick Switch"
+  drill4 <- "Closed Fist"
+  
+  drill_blurb_1 <- "Swim frestyle as ususal, but instead of a continuous arm motion, leave one arm above your head at all times and 'catch up' to it with your other. Alternate arms as you swim across the pool, focusing on one pull at a time."
+  drill_blurb_2 <- "With a focus on body position, leave one arm above your head and pull with the other. Maintiain a consistent kick, and switch arms halfway across the pool."
+  drill_blurb_3 <- "Pull with one arm, and count six kicks before beginning the next pull. Maintain good body position and consistent kick."
+  drill_blurb_4 <- "With a focus on engaging your forearm 'catch' in the water, swim freestyle with a closed fist."
+  
+  drillsTable <- data.frame(
+  Distance = c("4x25", "4x25", "4x25", "2x25"),
+  Interval = c(update_interval(params$base, -20, 1), 
+               update_interval(params$base, -10, 1), 
+               update_interval(params$base, -10, 1), 
+               update_interval(params$base, -30, 1)),
+  Drill = c(drill1, drill2, drill3, drill4),
+  Intensity = c(1, 2, 2, 2)
+  )
+  
+  if(params$age < 14){
+    mainTable <- data.frame(
+      Distance = c("200", "2x100", "4x50", "100"),
+      Interval = c(update_interval(params$base, -30, 3), 
+                   update_interval(params$base, 20, 1), 
+                   update_interval(params$base, -20, 1), 
+                   update_interval(params$base, 0, 2)),
+      Drill = c("Swim, Consistent Pace", "Swim, Build Speed", "Swim with strong kick", "recovery"),
+      Intensity = c(3, 4, 4, 1)
+    )
+  }else{
+    mainTable <- data.frame(
+      Distance = c("400", "2x200", "4x100", "100"),
+      Interval = c(update_interval(params$base, -60, 5), 
+                   update_interval(params$base, -30, 3), 
+                   update_interval(params$base, 20, 1), 
+                   update_interval(params$base, 0, 2)),
+      Drill = c("Swim, Consistent Pace", "Swim, Build Speed", "Swim with strong kick", "recovery"),
+      Intensity = c(3, 4, 4, 1)
+    )
+  }
+  
+  
+  main_goal <- "The aim of threshold swimming is to sustain a challenging but manageable pace that hovers around your lactate threshold, the point where lactic acid begins to accumulate in the muscles. This pace should be challenging enough to push your limits but sustainable for the duration of the set, aiming to improve your ability to tolerate and clear lactic acid while enhancing your overall anaerobic threshold."
+  
+}else if (params$day == 2){
+  stroke <- "Breaststroke"
+  mainSet <- "Aerobic"
+  mainBlurb <- paste("Repeat",repeatMain,"time(s).")
+  
+  drill1 <- "Streamline Kick"
+  drill2 <- "2 Kick, 1 Pull"
+  drill3 <- "BR Pull, FR Kick"
+  drill4 <- "Breaststroke Sculling"
+  
+  drill_blurb_1 <- "(snorkel optional) Place your hands in a streamline above your head and focus on a powerful, efficient kick. If you do not have a snorkel, pause to pick your head up and breathe."
+  drill_blurb_2 <- "Swim breaststroke, but instead of just one kick now take two. Try and maintain a consistent rythm as you do this drill."
+  drill_blurb_3 <- "With a consistent freestyle kick, try and tempo your arms while still maintaining a strong pull."
+  drill_blurb_4 <- "Breaststroke sculling in swimming involves the hands moving in a circular motion to create propulsion and maintain balance while slowly moving through the water. You can also move your hands back and forth like winshield wipers. The goal is to engage your forearms and feel the water!"
+  
+  drillsTable <- data.frame(
+  Distance = c("4x25", "3x25", "3x25", "2x25"),
+  Interval = c(update_interval(params$base, -10, 1), 
+               update_interval(params$base, -20, 1), 
+               update_interval(params$base, -20, 1), 
+               update_interval(params$base, -10, 1)),
+  Drill = c(drill1, drill2, drill3, drill4),
+  Intensity = c(1, 2, 2, 2)
+  )
+  
+  if(params$age < 14){
+    mainTable <- data.frame(
+      Distance = c("200", "100", "200", "2x50"),
+      Interval = c(update_interval(params$base, -30, 3), 
+                   update_interval(params$base, 20, 1), 
+                   update_interval(params$base, -30, 3), 
+                   update_interval(params$base, 20, 0.5)),
+      Drill = c("Swim", "Pull", "Swim", "kick"),
+      Intensity = c(3, 3, 3, 3)
+    )
+  }else{
+    mainTable <- data.frame(
+      Distance = c("400", "2x200", "4x100", "8x50"),
+      Interval = c(update_interval(params$base, -60, 5), 
+                   update_interval(params$base, -30, 3), 
+                   update_interval(params$base, 20, 1), 
+                   update_interval(params$base, -20, 1)),
+      Drill = c("Swim", "Swim", "Pull", "Kick"),
+      Intensity = c(3, 3, 3, 4)
+    )
+  }
+  
+  main_goal <- "The objective of aerobic swimming is to maintain a steady pace throughout a set distance or time period, focusing on efficient breathing and stroke technique. The aim is to sustain a rhythm that allows for continuous movement without excessive fatigue, promoting cardiovascular endurance and muscular stamina."
+  
+}else if (params$day == 3){
+  stroke <- "Backstroke"
+  mainSet <- "VO2 Max"
+  mainBlurb <- paste("Repeat",repeatMain,"time(s).")
+  
+  drill1 <- "Double-Arm Backstroke"
+  drill2 <- "12-Kick Switch"
+  drill3 <- "3 Strokes, 12 Kicks"
+  drill4 <- "Backstroke Catch-Up"
+  
+  drill_blurb_1 <- "Swim backstroke as usual but pull with both arms together rather than one at a time. A strong, consistent kick helps maintain good body position in the water!"
+  drill_blurb_2 <- "Pull with one arm, count twelve kicks, and then pull with the other. Continue to think about good body position and a strong kick as you do this drill."
+  drill_blurb_3 <- "Start to build a rythm as you add more strokes. Now take three strokes and pause for twelve kicks as you go down the pool."
+  drill_blurb_4 <- "Swim backstroke, and keep one arm in the air at all times. After you pull with one arm, leave that in the air and pull with the other. Relax as much as possible while you feel a strong pull and consistent kick."
+  
+  drillsTable <- data.frame(
+  Distance = c("4x25", "3x25", "3x25", "2x25"),
+  Interval = c(update_interval(params$base, -25, 1), 
+               update_interval(params$base, -20, 1), 
+               update_interval(params$base, -20, 1), 
+               update_interval(params$base, -20, 1)),
+  Drill = c(drill1, drill2, drill3, drill4),
+  Intensity = c(1, 2, 2, 2)
+  )
+  
+  mainTable <- data.frame(
+  Distance = c("4x25", "2x50", "10x50", "4x50"),
+  Interval = c(update_interval(params$base, -30, 1), 
+               update_interval(params$base, -20, 1), 
+               update_interval(params$base, 20, 1), 
+               update_interval(params$base, 30, 1)),
+  Drill = c("6 Strokes Fast", "Perfect Technique", "Best Average", "recovery"),
+  Intensity = c(4, 3, 5, 1)
+  )
+
+  
+  main_goal <- "The goal of VO2 Max is to hold the fastest consistent pace that you can across all ten 50s. This pace should match your second 50 split of your goal time. For example, if you want to come back 30 seconds in your 50 freestyle, your average across 10 50s should be 30 seconds. To learn more about VO2 Max and swimming, visit [bit.ly/vo2explained](bit.ly/vo2explained)"
+  
+}else if (params$day == 4){
+  stroke <- "Butterfly"
+  mainSet <- "Recovery"
+  mainBlurb <- paste("Repeat",repeatMain,"time(s).")
+  
+  drill1 <- "Flow Drill"
+  drill2 <- "Single Arm Butterfly"
+  drill3 <- "2-2-2 Butterfly"
+  drill4 <- "Skate Drill"
+
+  drill_blurb_1 <- "Undulate with your hands either above your head or at your sides, with a wave-like motion going through your entire body"
+  drill_blurb_2 <- "With a strong, consistent dolphin kick, swim butterfly with only one arm and breathe to the opposite side. Alternate arms by 25"
+  drill_blurb_3 <- "Similar to single arm butterfly, but now take two strokes with your right arm, two with your left, and two with both arms. Repeat until at the other side."
+  drill_blurb_4 <- "Maintain horizontal body position by using neck muscles for breathing, emphasizing low shoulders and avoiding excessive rotation, simulating skating over water surface by pulling your arms down as you kick, and then slowy recover them underwater."
+  
+  drillsTable <- data.frame(
+  Distance = c("4x25", "3x25", "3x25", "2x25"),
+  Interval = c(update_interval(params$base, -10, 1), 
+               update_interval(params$base, -15, 1), 
+               update_interval(params$base, -20, 1), 
+               update_interval(params$base, -10, 1)),
+  Drill = c(drill1, drill2, drill3, drill4),
+  Intensity = c(1, 2, 2, 2)
+  )
+  
+  mainTable <- data.frame(
+  Distance = c("4x75", "6x50", "6x50", "200"),
+  Interval = c("1:20", "0:50", "1:20", "5:00"),
+  Drill = c("Perfect Technique", "Build Speed", "Choice Stroke", "Easy Swim"),
+  Intensity = c(2, 4, 3, 1)
+  )
+  
+  main_goal <- "The goal of recovery swimming is to engage in low-intensity, gentle movements that facilitate the removal of metabolic waste products from the muscles while promoting relaxation and circulation. The focus is on maintaining a smooth and easy stroke technique, allowing the body to recover from previous intense training sessions or competitions."
+  
+  
+}else{
+  stroke <- "Choice"
+  mainSet <- "IM (Individual Medley) Mix"
+  mainBlurb <- paste("Repeat",repeatMain,"time(s).")
+  
+  drill1 <- "Choice Fly Drill"
+  drill2 <- "Choice Back Drill"
+  drill3 <- "Choice Breast Drill"
+  drill4 <- "Choice Free Drill"
+  drill5 <- "Swim, IM Order"
+  
+  drill_blurb_1 <- "Your favorite butterfly drill! Options include flow, single arm, 2-2-2, or skate drill"
+  drill_blurb_2 <- "Your favorite backstroke drill! Options include double arm, 12 kick switch, 3 strokes 12 kicks, or backstroke catch up"
+  drill_blurb_3 <- "Your favorite breaststroke drill! Options include 2 kick 1 pull, streamline kick, br pull/fr kick, or breaststroke sculling"
+  drill_blurb_4 <- "Your favorite freestyle drill! Options include freestyle catch-up, one arm freestyle, 6-kick switch, or closed fist"
+  
+  drillsTable <- data.frame(
+  Distance = c("3x25", "3x25", "3x25", "3x25","4x25"),
+  Interval = c(update_interval(params$base, -20, 1), 
+               update_interval(params$base, -25, 1), 
+               update_interval(params$base, -10, 1), 
+               update_interval(params$base, -25, 1), 
+               update_interval(params$base, -30, 1)),
+  Drill = c(drill1, drill2, drill3, drill4, drill5),
+  Intensity = c(1, 2, 2, 2, 2)
+  )
+  
+  
+  
+  if(params$age >= 14){
+    mainTable <- data.frame(
+      Distance = c("4x50", "2x100", "4x25", "200"),
+      Interval = c(update_interval(params$base, -10, 1), 
+                   update_interval(params$base, 20, 1), 
+                   update_interval(params$base, 20, 0.5), 
+                   update_interval(params$base, 30, 2)),
+      Drill = c("Kick 25, Swim 25 (IM Order)", "IM Swim", "IM Drills", "IM Swim"),
+      Intensity = c(2, 3, 2, 4)
+    )
+  }else{
+    mainTable <- data.frame(
+      Distance = c("4x50", "2x100", "4x25", "2x100"),
+      Interval = c(update_interval(params$base, -10, 1), 
+                   update_interval(params$base, 20, 1), 
+                   update_interval(params$base, 20, 0.5), 
+                   update_interval(params$base, 20, 1)),
+      Drill = c("Kick 25, Swim 25 (IM Order)", "IM Swim", "IM Drills", "IM Swim"),
+      Intensity = c(2, 3, 2, 4)
+    )
+  }
+  
+  main_goal <- "The objective of an IM mix practice is to develop versatility and proficiency across all four swimming strokes (butterfly, backstroke, breaststroke, and freestyle). This involves alternating between different strokes within a single set or workout, focusing on smooth transitions and maintaining technique consistency across each stroke."
+  
+  
+}
+
+
+
+
 ```
 
 
 ```{r, echo = FALSE, warning=FALSE}
+library(knitr)
+
 warmup <- data.frame(
-  Distance = c("2-300", "4x50", "4x50"),
-  Interval = c("-", "1:10", "1:00"),
+  Distance = c("200-300", "4x50", "4x50"),
+  Interval = c("-",
+               update_interval(params$base, -10, 1), 
+               update_interval(params$base, -20, 1)),
   Drill = c("Easy, warm up swim", "Kick, Choice", "Freestyle Pull"),
   Intensity = c(1, 2, 2)
 )
 
-kable(warmup) %>%
-  kable_styling(full_width = TRUE) %>%
-  row_spec(c(0, 2), background = "lightgrey")
+knitr::kable(warmup)
 ```
 
-
-
-Butterfly Drills (Repeat 2 times):
-
+\begin{center}
+`r stroke` Drills - Repeat `r repeatDrills` time(s).
+\end{center}
 
 ```{r, echo = FALSE, warning=FALSE}
-flyDrills <- data.frame(
-  Distance = c("4x25", "3x25", "3x25", "2x25"),
-  Interval = c("1:00", "0:45", "0:45", "1:00"),
-  Drill = c("Flow Drill", "Single Arm Butterfly", "2-2-2 Butterfly", "Skate Drill"),
-  Intensity = c(1, 2, 2, 2)
-)
-
-kable(flyDrills) %>%
-  kable_styling(full_width = TRUE) %>%
-  row_spec(c(0, 2, 4), background = "lightgrey")
+knitr::kable(drillsTable)
 ```
 
-
-
-Main Set - VO2 Max (Repeat 2 times, first round choice of stroke, second round freestyle):
-
+\begin{center}
+Main Set - `r mainSet` - `r mainBlurb`
+\end{center}
 
 ```{r, echo = FALSE, warning=FALSE}
-VO2max <- data.frame(
-  Distance = c("4x25", "2x50", "10x50", "4x50"),
-  Interval = c("1:00", "0:50", "1:30", "1:00"),
-  Drill = c("Variable Sprint", "perfect technique", "Best Average", "recovery"),
-  Intensity = c(4, 3, 5, 1)
-)
-
-kable(VO2max) %>%
-  kable_styling(full_width = TRUE) %>%
-  row_spec(c(0, 2, 4), background = "lightgrey")
+knitr::kable(mainTable)
 ```
 
+\begin{center}
 200 Cool-Down
-
+\end{center}
 &nbsp;
 
 **Drills Refresher:**
 
-* **Flow Drill (snorkel optional)**: Undulate with your hands either above your head or at your sides, with a wave-like motion going through your entire body
-* **Single Arm Butterfly**: With a strong, consistent dolfin kick, swim butterfly with only one arm and breathe to the opposite side. Alternate arms by 25
-* **2-2-2 Butterfly**: Similar to single arm butterfly, but now take two strokes with your right arm, two with your left, and two with both arms. Repeat until at the other side.
-* **Skate Drill**: Maintain horizontal body position by using neck muscles for breathing, emphasizing low shoulders and avoiding excessive rotation, simulating skating over water surface by pulling your arms down as you kick, and then slowy recover them underwater.
+* **`r drill1`**: `r drill_blurb_1`
+* **`r drill2`**: `r drill_blurb_2`
+* **`r drill3`**: `r drill_blurb_3`
+* **`r drill4`**: `r drill_blurb_4`
 
-**VO2 Max Goal:**
+**`r mainSet` Goal:**
 
-The goal of VO2 Max is to hold the fastest consistent pace that you can across all ten 50s. This pace should match your second 50 split of your goal time. For example, if you want to come back 30 seconds in your 50 freestyle, your average across 10 50s should be 30 seconds. To learn more about VO2 Max and swimming, visit [bit.ly/vo2explained](bit.ly/vo2explained)
+`r main_goal`
 
 &nbsp;
-
 
 Workout Created Using: [bit.ly/swim_training](bit.ly/swim_training)
