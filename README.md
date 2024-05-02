@@ -26,7 +26,7 @@ To run an R Shiny app locally, first ensure you have R Studio installed on your 
 
 #### Project Objectives:
 
-1. Determine what factors are important for developing age group swimmers, based on survey data of elite 18-year- old swimmers
+1. Determine what factors are important for developing age group swimmers, based on survey data of elite 18-year-old swimmers
 2. Develop a free, online web application for individuals to create personalized training plans using R Shiny
 
 #### Project Background:
@@ -49,7 +49,7 @@ This project has two components: first, to uncover the factors driving swimmers 
 
 ## Project Conclusions
 
-* The Data from elite 18-year-olds show that they typically start swimming at age six, focus on just swimming at ten, specialize in a stroke or event at 14, and adopt two-a-days at 14. (Figure 4, based on survey)
+* The data from elite 18-year-olds show that they typically start swimming at age six, focus on just swimming at ten, specialize in a stroke or event at 14, and adopt two-a-days at 14. (Figure 4, based on survey)
 * Five practices per week over a ten-week program are created. Specific practice recommendations are Threshold, Aerobic, VO2 Max, Recovery, and Individual Medley. These practices aim to improve general swimming ability. (coach input)
 
 ## Discussion & Future Improvements
@@ -64,7 +64,7 @@ This project has two components: first, to uncover the factors driving swimmers 
 * Thank you to the computing seminar at Kenyon College for advice and feedback!
 * Source for Equity Considerations:
 * “Segregation & Swimming Timeline in the United States.” Portland Center Stage, 6
-Oct. 2022, www.pcs.org/features/segregation-swimming-timeline-in-the-united- states#:~:text=1920%2D1940%3A%20Cities%20across%20the,of%20pools%20in%2 0Washington%2C%20D.C.
+Oct. 2022, [www.pcs.org/features/segregation-swimming-timeline-in-the-united-states#:~:text=1920%2D1940%3A%20Cities%20across%20the,of%20pools%20in%2 0Washington%2C%20D.C.](link)
 
 # Figures 
 
