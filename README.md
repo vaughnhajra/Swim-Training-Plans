@@ -1,11 +1,19 @@
 # Creating Optimized Swimming Training Plans
-**by: Vaughn Hajra** - Spring, 2024
+**by: Vaughn Hajra - Spring, 2024**
 
 Seminar in Scientific Computing, Kenyon College (COMP 401)
 
 Link to Web Application: [bit.ly/swim_training](bit.ly/swim_training)
 
-# Uploaded Files
+# Project Overview
+Objectives:
+
+1. Determine what factors are important for developing age group swimmers, based on survey data of elite 18-year- old swimmers
+2. Develop a free, online web application for individuals to create personalized training plans using R Shiny
+
+
+
+
 RQ5 - Survey Data (top 100 swimmers at 9 and 18)
 
 Performance Data - Top 100 Swimmers' performance data
