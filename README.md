@@ -18,9 +18,13 @@ This project has two components: first, to uncover the factors driving swimmers 
 **Web Application Overview:**
 
 • Four main pages are used to create the website (*Overview*, *Daily Workout*, *Training Plan*, *Drills*)
+
 • ***Overview:*** Takes user information and describes the goals of the project. Also allows for easy bookmarking for later via a custom hyperlink.
+
 • ***Today’s Workout:*** Allows users to download their daily practice as a pdf. Also includes text that gives advice on navigating a swim workout.
+
 • ***Training Plan:*** Provides charts and descriptions of elite swimmers’ timelines (Figure 4), example volume (Figure 2) and example intensity (Figure 3).
+
 • ***Swimming Drills:*** Provides links to video explanations and examples of all drills used in the training program.
 
 
