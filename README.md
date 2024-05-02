@@ -1,10 +1,10 @@
 # Creating Optimized Swimming Training Plans
 by: Vaughn Hajra
 Spring, 2024
+
 Seminar in Scientific Computing, Kenyon College (COMP 401)
 
-Connecting R Studio to Github:
-https://happygitwithr.com/rstudio-git-github.html
+Link to Web Application: bit.ly/swim_training
 
 # Uploaded Files
 RQ5 - Survey Data (top 100 swimmers at 9 and 18)
