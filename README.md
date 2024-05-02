@@ -1,7 +1,5 @@
 # Creating Optimized Swimming Training Plans
-**by: Vaughn Hajra**
-
-Spring, 2024
+**by: Vaughn Hajra** - Spring, 2024
 
 Seminar in Scientific Computing, Kenyon College (COMP 401)
 
