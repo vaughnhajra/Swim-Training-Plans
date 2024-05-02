@@ -68,3 +68,8 @@ This project has two components: first, to uncover the factors driving swimmers 
 Oct. 2022, www.pcs.org/features/segregation-swimming-timeline-in-the-united- states#:~:text=1920%2D1940%3A%20Cities%20across%20the,of%20pools%20in%2 0Washington%2C%20D.C.
 
 # Figures 
+
+<img width="1045" alt="image" src="https://github.com/vaughnhajra/comp401/assets/33579452/cd62bd13-12fe-4222-a467-4085af3f2d3d">
+
+Figure 1: Web Application Homepage
+
