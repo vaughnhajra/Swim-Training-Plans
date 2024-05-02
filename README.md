@@ -7,12 +7,12 @@ Link to Web Application: [bit.ly/swim_training](bit.ly/swim_training)
 
 ## Project Objectives & Background
 
-####Project Objectives:
+#### Project Objectives:
 
 1. Determine what factors are important for developing age group swimmers, based on survey data of elite 18-year- old swimmers
 2. Develop a free, online web application for individuals to create personalized training plans using R Shiny
 
-####Project Background:**
+#### Project Background:
 
 This project has two components: first, to uncover the factors driving swimmers to elite status by age 18, and second, to translate these findings into practical training plans for younger swimmers. Through analysis of survey responses and coach input, the project identifies elements that contribute to success in competitive swimming. A major component of the project is the development of an accessible R Shiny web application, offering free access to tailored workout plans. These plans are personalized based on individual skill level and biological factors, making quality training more widely available within the swimming community.
 
