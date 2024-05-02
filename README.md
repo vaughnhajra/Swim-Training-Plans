@@ -8,8 +8,10 @@ Link to Web Application: [bit.ly/swim_training](bit.ly/swim_training)
 
 # Running the App Locally & Editing Code
 
+To run an R Shiny app locally, first ensure you have R Studio installed on your computer or any IDE capable of running Shiny apps. Then, download the `app.R` and `Daily_Workout.Rmd` files onto your system. Next, install the necessary packages listed at the top of the `app.R` file using the `install.packages()` function if you haven't already done so. Once everything is set up, simply open the `app.R` file in your R Studio or IDE environment and run the Shiny app! This will launch the app locally, allowing you to interact with it in your web browser.
+
 # Project Overview
-Figures mentioned in this section are display below the overview section.
+*(Figures mentioned in this section are display below the overview section.)*
 
 ## Project Objectives & Background
 
