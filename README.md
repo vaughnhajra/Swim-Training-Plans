@@ -5,6 +5,12 @@ Seminar in Scientific Computing, Kenyon College (COMP 401)
 
 Link to Web Application: [bit.ly/swim_training](bit.ly/swim_training)
 
+
+# Running the App Locally & Editing Code
+
+# Project Overview
+Figures mentioned in this section are display below the overview section.
+
 ## Project Objectives & Background
 
 #### Project Objectives:
@@ -60,3 +66,5 @@ This project has two components: first, to uncover the factors driving swimmers 
 
 • “Segregation & Swimming Timeline in the United States.” Portland Center Stage, 6
 Oct. 2022, www.pcs.org/features/segregation-swimming-timeline-in-the-united- states#:~:text=1920%2D1940%3A%20Cities%20across%20the,of%20pools%20in%2 0Washington%2C%20D.C.
+
+# Figures 
