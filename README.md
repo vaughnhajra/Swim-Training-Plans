@@ -73,3 +73,14 @@ Oct. 2022, www.pcs.org/features/segregation-swimming-timeline-in-the-united- sta
 
 Figure 1: Web Application Homepage
 
+<img width="591" alt="image" src="https://github.com/vaughnhajra/comp401/assets/33579452/4f4b73d7-e779-4ea3-8962-ce762eba137b">
+
+Figure 2: Example Training Plan Volume
+
+<img width="663" alt="image" src="https://github.com/vaughnhajra/comp401/assets/33579452/a515888d-b90a-44e8-a490-3ad07c500e5a">
+
+Figure 3: Example Training Plan Intensity over Time
+
+<img width="954" alt="image" src="https://github.com/vaughnhajra/comp401/assets/33579452/0b75661c-1dcf-456d-a60e-6eb76246a9e5">
+
+Figure 4: Cumulative Percentages of Elite Swimmer Milestones by Age
