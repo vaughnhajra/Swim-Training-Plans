@@ -5,7 +5,7 @@ Seminar in Scientific Computing, Kenyon College (COMP 401)
 
 ## To view the application, click the following link!
 
-Link to Web Application: [bit.ly/swim_training](bit.ly/swim_training)
+Link to Web Application: [bit.ly/swim_training](http://bit.ly/swim_training)
 
 Occasionally PDF Downloads will not process because of the hosting service free plan. If this is the case run the code locally or look at the example training plans.
 
