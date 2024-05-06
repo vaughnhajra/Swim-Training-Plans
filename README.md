@@ -3,7 +3,7 @@
 
 Seminar in Scientific Computing, Kenyon College (COMP 401)
 
-## To view the application, follow the following link!
+## To view the application, click the following link!
 
 Link to Web Application: [bit.ly/swim_training](bit.ly/swim_training)
 
